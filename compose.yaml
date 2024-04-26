@@ -1,0 +1,18 @@
+services:
+  app:
+    image: ghcr.io/clevyr/cloudwatch-slack-alerts:local
+    build:
+      context: .
+      target: local
+    env_file:
+      - .env
+    entrypoint:
+      - ./aws-lambda-rie
+    command:
+      - ./cloudwatch-slack-alerts
+    ports:
+      - 127.0.0.1:9000:8080
+    develop:
+      watch:
+        - action: rebuild
+          path: .

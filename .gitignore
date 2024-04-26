@@ -1,0 +1,12 @@
+# Editor
+.idea
+
+# Compiled
+coverage.out
+dist/
+lambda-cloudwatch-slack
+out/
+
+# Config
+.env*
+!.env.example
