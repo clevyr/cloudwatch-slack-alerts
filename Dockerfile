@@ -45,13 +45,12 @@ RUN <<EOT
   chmod +x aws-lambda-rie
 EOT
 
-FROM alpine:3.19 AS base
-WORKDIR /app
-RUN apk add --no-cache tzdata
+FROM gcr.io/distroless/static:nonroot AS base
+WORKDIR /
 COPY --from=builder /app/cloudwatch-slack-alerts .
 
 FROM base AS local
 COPY --from=rie /app/aws-lambda-rie .
 
 FROM base
-CMD ["./cloudwatch-slack-alerts"]
+ENTRYPOINT ["./cloudwatch-slack-alerts"]
