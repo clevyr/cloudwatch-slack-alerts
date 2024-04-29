@@ -16,13 +16,8 @@ func Handler(conf *config.Config) HandlerFunc {
 			api = slack.New(conf.SlackAPIToken)
 		}
 
-		opts, err := event.SlackMsg()
-		if err != nil {
-			return err
-		}
-		opts = append(opts, slack.MsgOptionAsUser(true))
-
-		_, _, err = api.PostMessageContext(ctx, conf.SlackChannel, opts...)
+		opts := append(event.SlackMsg(), slack.MsgOptionAsUser(true))
+		_, _, err := api.PostMessageContext(ctx, conf.SlackChannel, opts...)
 		return err
 	}
 }

@@ -10,7 +10,7 @@ import (
 	"github.com/slack-go/slack"
 )
 
-func (event Event) SlackMsg() ([]slack.MsgOption, error) {
+func (event Event) SlackMsg() []slack.MsgOption {
 	var emoji string
 	var titleExt string
 	var color string
@@ -104,5 +104,5 @@ func (event Event) SlackMsg() ([]slack.MsgOption, error) {
 				},
 			},
 		}),
-	}, nil
+	}
 }
