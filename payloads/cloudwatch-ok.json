@@ -1,0 +1,41 @@
+{
+  "accountId": "444455556666",
+  "alarmArn": "arn:aws:cloudwatch:us-east-1:444455556666:alarm:pod_number_of_container_restarts",
+  "alarmData": {
+    "alarmName": "pod_number_of_container_restarts",
+    "configuration": {
+      "metrics": [
+        {
+          "id": "1234e046-06f0-a3da-9534-EXAMPLEe4c",
+          "metricStat": {
+            "metric": {
+              "dimensions": {
+                "ClusterName": "example-cluster"
+              },
+              "name": "pod_number_of_container_restarts",
+              "namespace": "ContainerInsights"
+            },
+            "period": 900,
+            "stat": "Maximum"
+          },
+          "returnData": true
+        }
+      ]
+    },
+    "previousState": {
+      "reason": "Threshold Crossed: 1 out of the last 1 datapoints [2.0 (29/04/24 21:06:00)] was greater than or equal to the threshold (1.0) (minimum 1 datapoint for OK -> ALARM transition).",
+      "reasonData": "{\"version\":\"1.0\",\"queryDate\":\"2024-04-29T21:21:22.449+0000\",\"startDate\":\"2024-04-29T21:06:00.000+0000\",\"statistic\":\"Maximum\",\"period\":900,\"recentDatapoints\":[2.0],\"threshold\":1.0,\"evaluatedDatapoints\":[{\"timestamp\":\"2024-04-29T21:06:00.000+0000\",\"sampleCount\":691.0,\"value\":2.0}]}",
+      "timestamp": "2024-04-29T21:18:51.690+0000",
+      "value": "ALARM"
+    },
+    "state": {
+      "reason": "Threshold Crossed: 1 out of the last 1 datapoints [0.0 (29/04/24 20:48:00)] was not greater than or equal to the threshold (1.0) (minimum 1 datapoint for ALARM -> OK transition).",
+      "reasonData": "{\"version\":\"1.0\",\"queryDate\":\"2024-04-29T21:03:35.413+0000\",\"startDate\":\"2024-04-29T20:48:00.000+0000\",\"statistic\":\"Maximum\",\"period\":900,\"recentDatapoints\":[0.0],\"threshold\":1.0,\"evaluatedDatapoints\":[{\"timestamp\":\"2024-04-29T20:48:00.000+0000\",\"sampleCount\":690.0,\"value\":0.0}]}",
+      "timestamp": "2024-04-29T21:03:35.415+0000",
+      "value": "OK"
+    }
+  },
+  "region": "us-east-1",
+  "source": "aws.cloudwatch",
+  "time": "2024-04-29T21:18:51.690+0000"
+}

@@ -2,34 +2,29 @@ package alert
 
 import (
 	"context"
-	"errors"
 
-	"github.com/aws/aws-lambda-go/events"
 	"github.com/clevyr/cloudwatch-slack-alerts/internal/config"
 	"github.com/slack-go/slack"
 )
 
-type HandlerFunc func(ctx context.Context, event events.SNSEvent) error
+type HandlerFunc func(ctx context.Context, event Event) error
 
 func Handler(conf *config.Config) HandlerFunc {
 	var api *slack.Client
-	return func(ctx context.Context, event events.SNSEvent) error {
+	return func(ctx context.Context, event Event) error {
 		if api == nil {
 			api = slack.New(conf.SlackAPIToken)
 		}
 
-		var errs []error
-		for _, record := range event.Records {
-			if err := notify(ctx, conf, api, record); err != nil {
-				errs = append(errs, err)
-			}
+		if err := notify(ctx, conf, api, event); err != nil {
+			return err
 		}
-		return errors.Join(errs...)
+		return nil
 	}
 }
 
-func notify(ctx context.Context, conf *config.Config, api *slack.Client, record events.SNSEventRecord) error {
-	opts, err := SlackMsg(record)
+func notify(ctx context.Context, conf *config.Config, api *slack.Client, event Event) error {
+	opts, err := event.SlackMsg()
 	if err != nil {
 		return err
 	}

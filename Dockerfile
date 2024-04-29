@@ -47,6 +47,7 @@ EOT
 
 FROM alpine:3.19 AS base
 WORKDIR /app
+RUN apk add --no-cache tzdata
 COPY --from=builder /app/cloudwatch-slack-alerts .
 
 FROM base AS local
