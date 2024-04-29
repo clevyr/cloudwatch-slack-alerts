@@ -16,20 +16,13 @@ func Handler(conf *config.Config) HandlerFunc {
 			api = slack.New(conf.SlackAPIToken)
 		}
 
-		if err := notify(ctx, conf, api, event); err != nil {
+		opts, err := event.SlackMsg()
+		if err != nil {
 			return err
 		}
-		return nil
-	}
-}
+		opts = append(opts, slack.MsgOptionAsUser(true))
 
-func notify(ctx context.Context, conf *config.Config, api *slack.Client, event Event) error {
-	opts, err := event.SlackMsg()
-	if err != nil {
+		_, _, err = api.PostMessageContext(ctx, conf.SlackChannel, opts...)
 		return err
 	}
-	opts = append(opts, slack.MsgOptionAsUser(true))
-
-	_, _, err = api.PostMessageContext(ctx, conf.SlackChannel, opts...)
-	return err
 }
