@@ -6,10 +6,6 @@ services:
       target: local
     env_file:
       - .env
-    entrypoint:
-      - ./aws-lambda-rie
-    command:
-      - ./cloudwatch-slack-alerts
     ports:
       - 127.0.0.1:9000:8080
     develop:

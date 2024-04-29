@@ -48,9 +48,11 @@ EOT
 FROM gcr.io/distroless/static:nonroot AS base
 WORKDIR /
 COPY --from=builder /app/cloudwatch-slack-alerts .
+ENTRYPOINT ["./cloudwatch-slack-alerts"]
 
 FROM base AS local
 COPY --from=rie /app/aws-lambda-rie .
+ENTRYPOINT ["./aws-lambda-rie"]
+CMD ["./cloudwatch-slack-alerts"]
 
 FROM base
-ENTRYPOINT ["./cloudwatch-slack-alerts"]
