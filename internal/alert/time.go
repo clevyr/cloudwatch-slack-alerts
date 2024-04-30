@@ -2,6 +2,7 @@ package alert
 
 import (
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -11,9 +12,11 @@ type Time struct {
 	time.Time
 }
 
+var ErrTimeInvalidInput = errors.New("Time.UnmarshalJSON: input is not JSON")
+
 func (t *Time) UnmarshalJSON(data []byte) error {
 	if len(data) < 2 || data[0] != '"' || data[len(data)-1] != '"' {
-		return errors.New("Time.UnmarshalJSON: input is not a JSON string")
+		return fmt.Errorf("%w: %q", ErrTimeInvalidInput, data)
 	}
 	data = data[len(`"`) : len(data)-len(`"`)]
 	var err error

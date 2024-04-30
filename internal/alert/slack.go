@@ -19,6 +19,7 @@ func (event Event) ContextMsg() string {
 
 	switch event.AlarmData.State.Value {
 	case StateAlarm, StateInsufficientData:
+		//nolint:gosmopolitan
 		context += "\n*Started at:* _" + event.AlarmData.State.Timestamp.Local().Format("3:04:05 PM") + "_"
 	case StateOK:
 		context += "\n*Duration:* " + event.AlarmData.State.Timestamp.Sub(event.AlarmData.PreviousState.Timestamp.Time).Round(time.Second).String()
