@@ -1,0 +1,13 @@
+services:
+  app:
+    image: ghcr.io/clevyr/cloudwatch-slack-alerts:beta
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - 127.0.0.1:9000:8080
+    develop:
+      watch:
+        - action: rebuild
+          path: .
