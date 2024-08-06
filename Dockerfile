@@ -1,6 +1,6 @@
-#syntax=docker/dockerfile:1.7
+#syntax=docker/dockerfile:1.9
 
-FROM --platform=$BUILDPLATFORM golang:1.22.2-alpine as builder
+FROM --platform=$BUILDPLATFORM golang:1.22.5-alpine as builder
 WORKDIR /app
 
 COPY go.mod go.sum ./
@@ -26,10 +26,10 @@ RUN --mount=type=cache,target=/root/.cache <<EOT
   go build -ldflags='-w -s' -tags lambda.norpc -trimpath -o cloudwatch-slack-alerts .
 EOT
 
-FROM alpine:3.19 AS rie
+FROM alpine:3.20 AS rie
 WORKDIR /app
 ARG TARGETPLATFORM
-ARG RIE_VERSION=v1.18
+ARG RIE_VERSION=v1.21
 RUN <<EOT
   set -eux
 
