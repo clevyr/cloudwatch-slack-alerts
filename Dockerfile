@@ -26,7 +26,7 @@ RUN --mount=type=cache,target=/root/.cache <<EOT
   go build -ldflags='-w -s' -tags lambda.norpc -trimpath -o cloudwatch-slack-alerts .
 EOT
 
-FROM alpine:3.19 AS rie
+FROM alpine:3.20 AS rie
 WORKDIR /app
 ARG TARGETPLATFORM
 ARG RIE_VERSION=v1.18
