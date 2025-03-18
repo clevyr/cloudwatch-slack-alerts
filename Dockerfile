@@ -1,7 +1,11 @@
 #syntax=docker/dockerfile:1.7
 
+FROM --platform=$BUILDPLATFORM tonistiigi/xx:1.6.1 AS xx
+
 FROM --platform=$BUILDPLATFORM golang:1.22.2-alpine as builder
 WORKDIR /app
+
+COPY --from=xx / /
 
 COPY go.mod go.sum ./
 RUN go mod download
@@ -11,20 +15,9 @@ COPY internal internal
 COPY *.go ./
 # Set Golang build envs based on Docker platform string
 ARG TARGETPLATFORM
-RUN --mount=type=cache,target=/root/.cache <<EOT
-  set -eux
+RUN --mount=type=cache,target=/root/.cache \
+  CGO_ENABLED=0 xx-go build -ldflags='-w -s' -tags lambda.norpc -trimpath -o cloudwatch-slack-alerts .
 
-  case "$TARGETPLATFORM" in
-    'linux/amd64') export GOARCH=amd64 ;;
-    'linux/arm/v6') export GOARCH=arm GOARM=6 ;;
-    'linux/arm/v7') export GOARCH=arm GOARM=7 ;;
-    'linux/arm64') export GOARCH=arm64 ;;
-    *) echo "Unsupported target: $TARGETPLATFORM" && exit 1 ;;
-  esac
-
-  export CGO_ENABLED=0
-  go build -ldflags='-w -s' -tags lambda.norpc -trimpath -o cloudwatch-slack-alerts .
-EOT
 
 FROM alpine:3.19 AS rie
 WORKDIR /app
