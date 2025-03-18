@@ -22,7 +22,7 @@ RUN --mount=type=cache,target=/root/.cache \
 FROM alpine:3.19 AS rie
 WORKDIR /app
 ARG TARGETPLATFORM
-ARG RIE_VERSION=v1.18
+ARG RIE_VERSION=v1.23
 RUN <<EOT
   set -eux
 
