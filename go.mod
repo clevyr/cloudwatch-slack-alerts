@@ -5,8 +5,8 @@ go 1.24.1
 require (
 	github.com/aws/aws-lambda-go v1.47.0
 	github.com/slack-go/slack v0.12.5
-	github.com/spf13/cobra v1.8.0
-	github.com/spf13/pflag v1.0.5
+	github.com/spf13/cobra v1.9.1
+	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/exp v0.0.0-20240416160154-fe59bbe5cc7f
 )
