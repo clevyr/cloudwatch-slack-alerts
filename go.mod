@@ -1,9 +1,9 @@
 module github.com/clevyr/cloudwatch-slack-alerts
 
-go 1.24.1
+go 1.26
 
 require (
-	github.com/aws/aws-lambda-go v1.47.0
+	github.com/aws/aws-lambda-go v1.55.0
 	github.com/slack-go/slack v0.16.0
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/pflag v1.0.6
